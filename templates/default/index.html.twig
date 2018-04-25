@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+    {% block main %}
+
+<h1>wailkome tou maye rayzo sossial</h1>
+
+<nav>
+
+    {% if prevPage >= 1 %}
+        <button class="btn btn-secondary">
+            <a class="btn btn-default"
+               href="{{ path('home', {'page': prevPage}) }}">Prev page</a>
+        </button>
+    {% endif %}
+
+    {% if nextPage <= lastPage %}
+        <button class="btn btn-secondary">
+            <a class="btn btn-default"
+               href="{{ path('home', {'page': nextPage}) }}">Next page</a>
+        </button>
+    {% endif %}
+</nav>
+
+
+<ul class="nav col-6 offset-3">
+    {% for post in posts %}
+
+        <li class="postItem">
+            <article>
+                <p title="{{ post.title }}">
+                    <img id="postPics" src="{{ asset('./pictures/posts/' ~ post.picture) }}">
+                </p>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.content }}</p>
+                <author>{{ post.user.username }}</author>
+
+                <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    Leave a comment
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Leave a comment</h4>
+                            </div>
+                            <div class="modal-body">{{ form(leaveCommentForm, {'attr':{'action':'leaveComment/'~post.id}}) }}
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </article>
+        </li>
+
+
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
