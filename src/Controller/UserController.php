@@ -31,9 +31,7 @@ class UserController extends Controller
             $user->setPassword($encoded);
             $user->setRoles(["ROLE_USER"]);
 
-            $file = $registerForm->get('image')->getData();
-            var_dump($file);
-
+            $file = $registerForm->get('profilePicture')->getData();
 
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
@@ -45,8 +43,7 @@ class UserController extends Controller
 
             // updates the 'brochure' property to store the PDF file name
             // instead of its contents
-            $user->setImage($fileName);
-
+            $user->setProfilePicture($fileName);
 
             $em->persist($user);
             $em->flush();

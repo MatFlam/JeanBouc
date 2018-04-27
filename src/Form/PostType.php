@@ -15,14 +15,17 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                "label" => "Your title"
+                "label" => "Your title",
+                "attr" => ["class" => "form-control"]
             ])
             ->add('content', null, [
-                "label" => "Your content"
+                "label" => "Your content",
+                "attr" => ["class" => "form-control"]
             ])
-            ->add('picture', FileType::class, array('label' => 'picture'))
+            ->add('picture', FileType::class, array('label' => 'picture', "attr" => ["class" => "form-control"]))
             ->add('submit', SubmitType::class, [
-                "label" => "Publish your shit!"
+                "label" => "Publish your shit!",
+                "attr" => ["class" => "btn btn-primary"]
             ]);
     }
 

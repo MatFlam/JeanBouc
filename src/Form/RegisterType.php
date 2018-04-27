@@ -17,28 +17,37 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', null, [
-                "label" => "Your first name"
+            ->add('firstname', null, [
+                "label" => "Your first name",
+                "attr" => ["class" => "form-control"]
             ])
             ->add('name', null, [
-                "label" => "Your name"
+                "label" => "Your name",
+                "attr" => ["class" => "form-control"]
             ])
             ->add('username', null, [
-                "label" => "Your Username"
+                "label" => "Your Username",
+                "attr" => ["class" => "form-control"]
             ])
             ->add('mail', EmailType::class, [
-                "label" => "Your Email"
+                "label" => "Your Email",
+                "attr" => ["class" => "form-control"]
             ])
-            ->add('image', FileType::class, array('label' => 'Image'))
+            ->add('profilePicture', FileType::class, [
+                'label' => 'Image',
+                "attr" => ["class" => "form-control"]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'Password', "attr" => ["class" => "form-control"]],
+                'second_options' => ['label' => 'Repeat Password', "attr" => ["class" => "form-control"]],
+
             ])
             ->add('submit', SubmitType::class, [
-                "label" => "Create my account!"
+                "label" => "Create my account!",
+                "attr" => ["class" => "btn btn-primary"]
             ]);
     }
 

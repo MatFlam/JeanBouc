@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+    {% block main %}
+        <nav>
+
+            {% if prevPage >= 1 %}
+                <button class="btn btn-secondary">
+                    <a class="btn btn-default"
+                       href="{{ path('home', {'page': prevPage}) }}">Prev page</a>
+                </button>
+            {% endif %}
+
+            {% if nextPage <= lastPage %}
+                <button class="btn btn-secondary">
+                    <a class="btn btn-default"
+                       href="{{ path('home', {'page': nextPage}) }}">Next page</a>
+                </button>
+            {% endif %}
+        </nav>
+
+
+        <ul class="nav col-4 offset-4 listItems">
+            {% for post in posts %}
+
+                <li class="postItem">
+                    <article class="article">
+                        <h3>Posted by {{ post.user.username }} - {{ post.title }}</h3>
+                        <img id="postPics" src="{{ asset('./pictures/posts/' ~ post.picture) }}">
+                        <p>{{ post.content }}</p>
+                        <div class="commentPost">
+                            {% for comment in post.comments %}
+                                <article>
+                                    <div class="titleCommentDiv">
+                                    <img class="profilePicsComments" src="{{ asset('./pictures/profiles/' ~ comment.user.profilePicture) }}">
+                                    <h6 style="font-weight: bold">{{ comment.title }} -
+                                        By
+                                        <author>{{ comment.user.username }}
+                                            on {{ comment.dateCreated | date('Y-M-d') }}</author>
+                                    </h6>
+                                    </div>
+                                    <p>{{ comment.content }}</p>
+                                </article>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group postCommentZone">
+                            <form action="{{ path('leaveComment') }}" method="post">
+                                <label for="title">Title</label>
+                                <input id="title" class="form-control" type="text" name="title">
+                                <label for="content">Content</label>
+                                <input id="content" class="form-control" type="text" name="content">
+                                <input type="hidden" value="{{ post.id }}" name="postId">
+                                <button class="btn btn-primary btn-lg">
+                                    Leave a comment
+                                </button>
+
+                            </form>
+                        </div>
+                    </article>
+                </li>
+
+
+            {% endfor %}
+        </ul>
+
+
+    {% endblock %}
